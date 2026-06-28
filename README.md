@@ -5,7 +5,7 @@
 [![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)](https://streamlit.io)
 [![Machine Learning](https://img.shields.io/badge/ML-XGBoost%20%7C%20CatBoost%20%7C%20LightGBM-orange)](https://github.com/)
 
-Machine learning pipeline and interactive dashboards for predicting FIFA World Cup match results using XGBoost and LightGBM.
+The World Cup Match Predictor is an end-to-end data science and machine learning suite dedicated to forecasting the outcomes of the FIFA 2026 World Cup. This comprehensive project encompasses the entire machine learning lifecycle, starting from automated data acquisition and web scraping tools to gather historical match data, player statistics, and team performance metrics. At its core, the suite employs powerful gradient boosting frameworks—including XGBoost, CatBoost, and LightGBM—to train highly accurate predictive models capable of forecasting match results, simulating tournament brackets, and estimating finalist probabilities. All of these complex analytics are surfaced through an intuitive, interactive Streamlit dashboard served by a high-performance FastAPI backend, allowing users to explore predictions and model confidence dynamically.
 
 ---
 
