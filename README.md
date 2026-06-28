@@ -1,11 +1,11 @@
-# ⚽ FIFA 2026 World Cup Prediction Suite
+# World Cup Match Predictor
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org)
 [![FastAPI](https://img.shields.io/badge/API-FastAPI-green)](https://fastapi.tiangolo.com)
 [![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)](https://streamlit.io)
 [![Machine Learning](https://img.shields.io/badge/ML-XGBoost%20%7C%20CatBoost%20%7C%20LightGBM-orange)](https://github.com/)
 
-A comprehensive collection of data acquisition tools, machine learning modeling pipelines, and interactive serving platforms designed for predicting the match results, tournament brackets, and finalist team probabilities of the **FIFA 2026 World Cup**.
+Machine learning pipeline and interactive dashboards for predicting FIFA World Cup match results using XGBoost and LightGBM.
 
 ---
 
