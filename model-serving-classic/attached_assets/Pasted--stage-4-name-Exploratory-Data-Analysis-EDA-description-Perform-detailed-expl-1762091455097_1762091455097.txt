@@ -1,0 +1,68 @@
+{
+  "stage": 4,
+  "name": "Exploratory Data Analysis (EDA)",
+  "description": "Perform detailed exploratory analysis on preprocessed datasets to identify trends, relationships, and hidden biases influencing match outcomes. EDA guides feature selection and helps detect patterns critical for FIFA 2026 predictions.",
+
+  "objectives": [
+    "Understand the statistical structure of football data",
+    "Identify key variables influencing match results",
+    "Detect data imbalance, correlation, or hidden bias",
+    "Visualize feature relationships and team trends"
+  ],
+
+  "analysis_tasks": [
+    {
+      "task": "Distribution Analysis",
+      "details": "Visualize distribution of numerical features (goals, possession, odds, rankings) to check skewness and outliers."
+    },
+    {
+      "task": "Correlation Analysis",
+      "details": "Use Pearson/Spearman correlation to analyze relationships between team performance metrics and outcomes."
+    },
+    {
+      "task": "Outcome Trends",
+      "details": "Evaluate winning probability trends by team, region, and ranking tier."
+    },
+    {
+      "task": "Temporal Patterns",
+      "details": "Observe seasonal and yearly trends — detect performance drift over time (important for temporal validation)."
+    },
+    {
+      "task": "Confounding Factors",
+      "details": "Analyze weather, referee decisions, and location influence on match results."
+    },
+    {
+      "task": "Feature Importance (Preliminary)",
+      "details": "Use RandomForest or XGBoost feature_importances_ to get initial understanding of variable influence."
+    }
+  ],
+
+  "visualizations": [
+    "Histograms of goals scored and conceded per team",
+    "Boxplots for possession vs match result",
+    "Heatmap for correlation matrix of numerical features",
+    "Scatterplots for ranking difference vs win probability",
+    "Bar charts showing top-performing teams over time"
+  ],
+
+  "tools_and_libraries": [
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "plotly (for interactive dashboard visualizations)",
+    "scipy.stats"
+  ],
+
+  "outputs": {
+    "reports": "eda_summary.pdf",
+    "notebooks": "eda_analysis.ipynb",
+    "plots": "eda_visuals/*.png",
+    "findings": [
+      "Strong correlation between fifa_rank_difference and winning probability",
+      "Weather has mild negative impact for teams unaccustomed to high humidity",
+      "Referee decision ratio affects anomaly detection layer (Stage 5)"
+    ]
+  },
+
+  "note": "EDA establishes a data-driven foundation for feature engineering and modeling, helping identify predictive signals and biases before training."
+}

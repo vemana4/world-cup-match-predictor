@@ -1,0 +1,68 @@
+{
+  "stage": 5,
+  "name": "Feature Engineering (Tournament-Aware)",
+  "description": "Derive tournament-relevant, context-aware features to improve predictive accuracy. Combine historical, statistical, and situational indicators to reflect real-world football dynamics.",
+
+  "objectives": [
+    "Create informative features that enhance model interpretability",
+    "Incorporate tournament-specific context (group stage vs knockout)",
+    "Reduce feature redundancy via correlation and variance filtering"
+  ],
+
+  "feature_categories": {
+    "performance_metrics": [
+      "avg_goals_last5 = rolling mean of goals over last 5 matches",
+      "win_ratio = wins / total matches played",
+      "goal_concede_ratio = goals_conceded / total matches played"
+    ],
+    "comparative_metrics": [
+      "rank_difference = fifa_rank_away - fifa_rank_home",
+      "possession_diff = possession_home - possession_away",
+      "pass_accuracy_diff = pass_accuracy_home - pass_accuracy_away"
+    ],
+    "contextual_features": [
+      "home_advantage = 1 if match_location == home_team else 0",
+      "climate_index = weighted combination of temperature, humidity, altitude"
+    ],
+    "dynamic_features": [
+      "form_score = weighted average of last 5 results (3-1-0 points)",
+      "momentum_factor = trend of goal_difference in recent matches"
+    ],
+    "external_features": [
+      "referee_bias_score = normalized foul/card ratio per referee",
+      "betting_diff = difference between predicted odds and actual outcomes"
+    ]
+  },
+
+  "feature_selection": {
+    "method": "VarianceThreshold + Mutual Information + SHAP filtering",
+    "validation": "Check for multicollinearity using Variance Inflation Factor (VIF < 5)"
+  },
+
+  "output_features": [
+    "avg_goals_last5",
+    "win_ratio",
+    "rank_difference",
+    "possession_diff",
+    "home_advantage",
+    "form_score",
+    "momentum_factor",
+    "climate_index",
+    "referee_bias_score",
+    "betting_diff"
+  ],
+
+  "tools_and_libraries": [
+    "pandas",
+    "numpy",
+    "scikit-learn (FeatureUnion, SelectKBest)",
+    "SHAP (for importance validation)"
+  ],
+
+  "outputs": {
+    "processed_dataset": "features_final.csv",
+    "feature_metadata": "feature_importance_summary.json"
+  },
+
+  "note": "These engineered features incorporate match context and team trends, enabling robust generalization across group and knockout stages."
+}

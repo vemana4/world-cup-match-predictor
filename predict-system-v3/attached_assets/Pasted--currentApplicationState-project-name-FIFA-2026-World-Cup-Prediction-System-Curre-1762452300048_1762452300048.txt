@@ -1,0 +1,248 @@
+{
+  "currentApplicationState": {
+    "project_name": "⚽ FIFA 2026 World Cup Prediction System (Current v1)",
+    "summary": "A comprehensive AI system using an XGBoost classifier on historical, team-level data to predict match outcomes (Win/Draw/Loss) with ~65% validation accuracy. It includes a Monte Carlo simulator and is presented in a monolithic Streamlit dashboard.",
+    "data_philosophy": "✅ REAL Data Integration (NO FAKE DATA!). The system is designed to use pure, real data from official sources (GitHub, Wikipedia, FIFA.com) and raises errors if it's unavailable - NO PLACEHOLDERS.",
+    "key_modules_v1": [
+      {
+        "module_name": "Match Prediction Engine",
+        "details": "Uses an XGBoost Multiclass Classifier to predict Home Win (0), Draw (1), or Away Win (2). It achieves approximately 65% validation accuracy with a Log Loss of ~0.85."
+      },
+      {
+        "module_name": "Data Collection & Management",
+        "details": "Integrates real data: 1) FIFA Rankings from a GitHub repository, Wikipedia, and FIFA.com, 2) 1000+ real historical international matches, 3) Dynamic Team Management for 28 qualified + 20 provisional teams. Includes a daily data refresh scheduler via APScheduler."
+      },
+      {
+        "module_name": "Tournament Simulator",
+        "details": "A Monte Carlo simulation engine that runs 10,000+ full tournament simulations for the 48-team FIFA 2026 format to estimate finalist probabilities."
+      },
+      {
+        "module_name": "Anomaly Detection",
+        "details": "Uses an IsolationForest Algorithm to detect unusual match patterns and flag suspicious results for review. This analysis is independent of the main prediction model."
+      },
+      {
+        "module_name": "User Interface (UI)",
+        "details": "An interactive dashboard built with Streamlit, allowing users to get live predictions, run simulations, and explore the raw data tables."
+      }
+    ],
+    "current_data_features_v1": [
+      "Rank difference (most important)",
+      "Points difference",
+      "Team form scores (home & away)",
+      "Historical win ratios",
+      "Goals averages",
+      "Competition importance weights"
+    ],
+    "technology_stack_v1": [
+      {
+        "category": "Machine Learning",
+        "stack": "XGBoost, IsolationForest, scikit-learn"
+      },
+      {
+        "category": "Data Processing",
+        "stack": "pandas, numpy, BeautifulSoup, requests"
+      },
+      {
+        "category": "Visualization / UI",
+        "stack": "Streamlit, Plotly"
+      },
+      {
+        "category": "Database",
+        "stack": "PostgreSQL, SQLAlchemy"
+      },
+      {
+        "category": "Scheduling",
+        "stack": "APScheduler"
+      }
+    ],
+    "explicitly_stated_limitations_v1": [
+      "Predictions do not account for critical, real-time context like player injuries, suspensions, or tactical changes.",
+      "Model accuracy (~65%) is limited by the team-level, historical nature of its features.",
+      "Relies on simplified data for complex factors like weather and referees.",
+      "Anomaly detection is basic and could be 'significantly enhanced with live market data'."
+    ]
+  },
+  "newApplicationBuildPlan": {
+    "project_name": "State-of-the-Art FIFA Match Prediction System (v3.0 Build Plan)",
+    "project_objective": "To build a new, full-stack application 'from scratch', architected to achieve an 80%+ accuracy target. This system will be built on a strict 'pure, real data' philosophy, processing daily scraped data (injuries, weather, player stats) for live match fixtures. It will feature a decoupled API, advanced anomaly detection, and a trust-building, explainable UI.",
+    "target_model_accuracy": "80%+",
+    "target_architecture": "A decoupled, 3-part system: 1) A FastAPI Backend API to serve the model. 2) A Streamlit Frontend UI that consumes the API. 3) An APScheduler Service that runs automated daily scraping pipelines.",
+    "build_phases": [
+      {
+        "phase": 1,
+        "name": "Core Architecture & Database Foundation",
+        "objective": "Establish the production-grade, decoupled architecture, advanced database schema, and the automated scheduling service.",
+        "steps": [
+          {
+            "step": 1.1,
+            "task": "Design New Database Schema (v3)",
+            "details": "Define PostgreSQL/SQLAlchemy models for all new entities required for the 80% accuracy goal: `Players`, `Teams`, `Matches`, `LiveFixtures`, `PlayerStats_xG` (for granular stats), `PlayerMarketValues` (from Transfermarkt), `RefereeStats` (for granular context), `InjuryReports` (from NLP module), `BettingOdds_Live` (for anomaly detection), `ModelPredictions`, `PredictionExplainability` (to store SHAP values)."
+          },
+          {
+            "step": 1.2,
+            "task": "Build Decoupled FastAPI Backend",
+            "details": "Implement the 'RESTful API endpoints (FastAPI)'. Create endpoints like `/predict/{match_id}`, `/simulate_tournament`, `/get_match_explainability/{match_id}`, and `/get_live_fixtures`. This decouples the model from the UI, which is critical for scalability and fixing the v1 monolithic design."
+          },
+          {
+            "step": 1.3,
+            "task": "Setup Daily Scheduler Service",
+            "details": "Implement APScheduler as a standalone service. This service will be the 'heartbeat' of the app, triggering all new, complex daily scraping and data processing jobs (from Phase 2 and 3) to gather real-time data for upcoming matches."
+          }
+        ]
+      },
+      {
+        "phase": 2,
+        "name": "Advanced Data Scraping Engine (The 80% Accuracy Enabler)",
+        "objective": "Scrape all the new, granular, real-time data needed to fix the v1 limitations ('simplified data', 'team-level stats') and feed the advanced model. This is the *most critical* phase for achieving 80% accuracy.",
+        "steps": [
+          {
+            "step": 2.1,
+            "task": "Scrape Player-Level Performance Data",
+            "details": "Build scrapers for FBref, Opta, or StatsBomb. This is the 'single biggest accuracy boost'. Collect player-level metrics: Expected Goals (xG), Expected Assists (xA), pressures, successful tackles, and rolling 5-game player ratings. This data is essential for the 'Starting XI' features."
+          },
+          {
+            "step": 2.2,
+            "task": "Scrape Player Market Value",
+            "details": "Build a scraper for Transfermarkt to get player market value. This will be used as a 'strong, objective proxy for raw talent' in the feature engineering phase."
+          },
+          {
+            "step": 2.3,
+            "task": "Scrape Granular Contextual Data",
+            "details": "Build scrapers to replace the 'simplified data' from v1. Scrape: 1) **Referee Stats**: Assigned referee's specific stats (avg. cards/match, home_win_bias_%). 2) **Hourly Weather**: Hourly weather forecasts for the stadium (temp, humidity, wind_speed). 3) **Team Travel**: Team travel data (distance_travelled, timezones_crossed)."
+          },
+          {
+            "step": 2.4,
+            "task": "Integrate Live Betting Market API",
+            "details": "Connect to a live betting API (e.g., The Odds API, Oddschecker). Pull Opening/Closing odds, betting volume, and line movement 'velocity'. This data is crucial for *both* the prediction model (as a 'market wisdom' feature) and the advanced anomaly detection module."
+          }
+        ]
+      },
+      {
+        "phase": 3,
+        "name": "NLP Module (Real-Time Context Engine)",
+        "objective": "Build the NLP pipeline to extract data from unstructured text, specifically fixing the 'player injury' limitation, which is a 'main weakness' of the v1 model.",
+        "steps": [
+          {
+            "step": 3.1,
+            "task": "Build Automated Injury/Suspension Detector",
+            "details": "Use a Named Entity Recognition (NER) model (e.g., fine-tuning RoBERTa or using spaCy) to scan scraped news articles (using `trafilatura`) and social media. The model must automatically find (Player Name + 'injured'/'suspended'/'doubtful'). This 'fixes the main weakness' and creates a critical binary feature for player availability."
+          },
+          {
+            "step": 3.2,
+            "task": "Build 'Team Morale & Pressure Index'",
+            "details": "Use sentiment analysis (e.g., fine-tuning RoBERTa) on news headlines and fan social media to create a 'morale' or 'public_pressure' score, a 'powerful predictive feature'."
+          },
+          {
+            "step": 3.3,
+            "task": "Build 'Tactical Keyword Extraction'",
+            "details": "Extract keywords (e.g., 'high press', 'low block', 'counter-attack') from pre-match pundit analysis to use as categorical features, allowing the model to learn tactical matchups."
+          }
+        ]
+      },
+      {
+        "phase": 4,
+        "name": "Advanced Modeling & Feature Engineering (The 80% Accuracy Core)",
+        "objective": "Build the new, superior model architecture that leverages all the new data from Phases 2 & 3 to achieve the 80%+ accuracy target.",
+        "steps": [
+          {
+            "step": 4.1,
+            "task": "Re-frame Prediction Target (The 'Superior Approach')",
+            "details": "This is the most important architectural change from v1. **Do not** predict Win/Draw/Loss (a 3-class classification). Instead, 'Change Prediction Target: Predict Goals'. You will build two independent regression models (e.g., Poisson, Negative Binomial, or XGBoost Regressors) to predict `home_goals` and `away_goals`. From the resulting goal distributions (e.g., Home 2.1, Away 1.3), you can simulate the match thousands of times to derive precise Win/Draw/Loss probabilities."
+          },
+          {
+            "step": 4.2,
+            "task": "Implement Stacked Ensemble",
+            "details": "Build multiple models that specialize. (Model 1: Baseline XGBoost on team stats like rank), (Model 2: CatBoost/LightGBM on the new granular/categorical data like player stats, weather, and referee names), (Model 3: Logistic Regression on the NLP features like morale). Then, combine their outputs with a final 'meta-model' for a highly robust and accurate final prediction."
+          },
+          {
+            "step": 4.3,
+            "task": "Engineer Dynamic, Context-Aware Features",
+            "details": "Create features *at prediction time* that use the new data. Examples: `starting_xi_total_market_value`, `starting_xi_avg_xg_last_5_games`, `starting_xi_avg_defensive_actions`, and a 'Key Player Dependency' score that is heavily penalized if the NLP module (Step 3.1) flags that player as injured."
+          }
+        ]
+      },
+      {
+        "phase": 5,
+        "name": "Advanced Anomaly Detection (Match Fixing Monitor)",
+        "objective": "Build a sophisticated integrity monitor using live market data, replacing the simple v1 IsolationForest model.",
+        "steps": [
+          {
+            "step": 5.1,
+            "task": "Build 'Smart Money' Anomaly Model",
+            "details": "Enhance the IsolationForest model. The primary features will now be from the betting API (Step 2.4): `(closing_line - opening_line)` (to capture market sentiment), `betting_volume_on_underdog`, and `odds_movement_velocity`. This is a direct upgrade to find suspicious market activity."
+          }
+        ]
+      },
+      {
+        "phase": 6,
+        "name": "Advanced UI/UX & Explainability (XAI)",
+        "objective": "Build the new Streamlit UI focused on trust, transparency, and visualizing all the new data from Phases 2 & 3. The UI must be a 'trust-building' tool, not just a settings panel.",
+        "steps": [
+          {
+            "step": 6.1,
+            "task": "Build Streamlit UI to Call FastAPI",
+            "details": "The Streamlit app will no longer run the model locally. It will function as a pure frontend, making API calls to the FastAPI backend (built in Phase 1) for predictions and data. This makes the UI lighter and more responsive."
+          },
+          {
+            "step": 6.2,
+            "task": "Implement Interactive SHAP/LIME Plots (Key Trust Feature)",
+            "details": "This is the top UI priority for the new app. When a user gets a prediction, the UI must *immediately* show a SHAP/LIME force plot for *that specific prediction*. This builds trust and provides deep insights. The UI will display the text from your plan: 'France has a 60% win chance *because*: rank_difference=+20, starting_xi_market_value=+15, *but* key_player_injury=-10.'"
+          },
+          {
+            "step": 6.3,
+            "task": "Redesign Prediction Output for Goal-Based Model",
+            "details": "The UI must be redesigned to reflect the new goal-based model (Step 4.1). Instead of just `Win: 60%`, the new UI will show: `Most Likely Score: 2-1`, `Predicted Goals: Home 2.1, Away 1.3`, and a chart of probabilities for other scores (0-0, 1-0, 1-1, etc.)."
+          },
+          {
+            "step": 6.4,
+            "task": "Add New Dashboard Components for New Data",
+            "details": "Create new UI sections to *showcase* all the new data: 1. **'Head-to-Head'**: A comparison showing team morale (from Step 3.2), total market value (from Step 2.2), and avg xG (from Step 2.1). 2. **'Match Context'**: Show icons for weather (e.g., 'Rainy 15°C'), referee (e.g., 'Strict: 5.2 cards/gm'), and travel (e.g., 'Long Haul: 8 timezones'). 3. **'Injury/Suspension Alerts'**: Display outputs from the NLP module (Step 3.1) with red flags next to key players. 4. **'Market Insights'**: A tab to show live betting odds and any matches flagged by the anomaly detector (Phase 5)."
+          },
+          {
+            "step": 6.5,
+            "task": "Implement Mobile-Responsive Dashboard",
+            "details": "Ensure the Streamlit dashboard is fully responsive and usable on mobile devices, a planned feature from the v1 README."
+          }
+        ]
+      },
+      {
+        "phase": 7,
+        "name": "Final MLOps & Deployment (Live Operation)",
+        "objective": "Automate and deploy the full, end-to-end system to run autonomously.",
+        "steps": [
+          {
+            "step": 7.1,
+            "task": "Automate Daily End-to-End Fixture Pipeline",
+            "details": "This is the final 'go-live' step. Configure the APScheduler (from 1.3) to run the *entire* daily pipeline: 1. Scrape live match fixtures for the day. 2. For each fixture, run all Phase 2 scrapers (weather, stats) & Phase 3 scrapers (injuries, morale). 3. Pre-calculate features and store them in the DB. 4. The FastAPI is now serving predictions based on data scraped just hours ago."
+          },
+          {
+            "step": 7.2,
+            "task": "Implement Automated Retraining & Drift Detection",
+            "details": "Implement the planned 'Drift detection and automated retraining'. Set up a monitoring service that ingests live match results, compares them to the model's predictions (Log Loss), and automatically triggers model retraining if performance decays below a set threshold."
+          }
+        ]
+      }
+    ],
+    "allDataFeaturesInNewApp": [
+      "Rank difference", "Points difference", "Historical win ratios", "Team form scores", "Competition importance",
+      "Player-level Expected Goals (xG)",
+      "Player-level Expected Assists (xA)",
+      "Player-level successful tackles/pressures",
+      "Player Market Value (from Transfermarkt)",
+      "Opening/Closing betting odds",
+      "Betting volume & 'Line velocity'",
+      "Referee avg. cards/match",
+      "Referee home_win_bias_%",
+      "Hourly weather (temp, humidity, wind_speed)",
+      "Team travel distance & timezones crossed",
+      "`starting_xi_total_market_value` (aggregate)",
+      "`starting_xi_avg_xg_last_5_games` (aggregate)",
+      "`Key Player Dependency' Score`",
+      "`(closing_line - opening_line)` (Smart Money feature)",
+      "Player `is_injured_or_suspended` (binary NLP feature)",
+      "`team_morale_score` (NLP feature)",
+      "`public_pressure_score` (NLP feature)",
+      "`tactical_keyword` (categorical NLP feature)"
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "stage": 7,
+  "name": "Anomaly & Integrity Detection",
+  "description": "Detect unusual or suspicious football match patterns that may indicate unfair gameplay, referee bias, or data anomalies. This system runs in parallel with the main prediction model to ensure ethical analytics and result transparency.",
+
+  "objectives": [
+    "Identify statistically abnormal match behaviors",
+    "Prevent model corruption by separating anomaly scores from predictive weights",
+    "Provide an integrity metric for further human review"
+  ],
+
+  "algorithms": [
+    {
+      "name": "IsolationForest",
+      "purpose": "Detect extreme outlier matches based on quantitative metrics",
+      "parameters": {
+        "n_estimators": 200,
+        "contamination": 0.05,
+        "max_samples": "auto"
+      }
+    },
+    {
+      "name": "Autoencoder",
+      "purpose": "Capture nonlinear deviations in feature space via reconstruction error",
+      "architecture": {
+        "encoder_layers": [32, 16],
+        "decoder_layers": [16, 32],
+        "activation": "relu",
+        "optimizer": "adam"
+      }
+    }
+  ],
+
+  "input_features": [
+    "betting_diff",
+    "possession_diff",
+    "foul_diff",
+    "referee_bias_score",
+    "goal_difference",
+    "rank_difference"
+  ],
+
+  "processing_flow": [
+    "Standardize selected anomaly-related features",
+    "Train IsolationForest and Autoencoder independently",
+    "Compute anomaly_score = 1 - normalized reconstruction_error",
+    "Threshold anomaly_score < 0.3 → flag for review"
+  ],
+
+  "evaluation_metrics": [
+    "Precision-Recall for anomaly labels (if available)",
+    "Reconstruction loss (Autoencoder)",
+    "Average path length (IsolationForest)"
+  ],
+
+  "outputs": {
+    "anomaly_scores_file": "outputs/anomaly_scores.csv",
+    "integrity_report": "reports/match_integrity_summary.json",
+    "visualization": "Anomaly heatmap of matches over time"
+  },
+
+  "integration": "Anomaly model runs independently and outputs integrity flags. Scores are not used as weights in sporting predictions to preserve model explainability.",
+
+  "tools_and_libraries": [
+    "scikit-learn",
+    "tensorflow / keras",
+    "numpy",
+    "pandas",
+    "matplotlib"
+  ],
+
+  "note": "Anomaly detection provides an integrity monitoring layer for the project, ensuring transparency without interfering with the sporting predictor."
+}

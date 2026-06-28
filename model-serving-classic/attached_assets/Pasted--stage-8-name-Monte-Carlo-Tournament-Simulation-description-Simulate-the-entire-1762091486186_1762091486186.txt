@@ -1,0 +1,55 @@
+{
+  "stage": 8,
+  "name": "Monte Carlo Tournament Simulation",
+  "description": "Simulate the entire FIFA 2026 tournament thousands of times to estimate the probability of each team reaching various stages (e.g., finals, semifinals). This transforms match-level predictions into tournament-level insights.",
+
+  "objectives": [
+    "Estimate probabilities for each team reaching the finals",
+    "Quantify uncertainty through repeated random simulation",
+    "Account for group and knockout stage dynamics"
+  ],
+
+  "simulation_steps": [
+    "Load trained models from Stage 6 (XGBoost and CatBoost)",
+    "Load group configurations and knockout bracket structure",
+    "Generate match outcomes using predicted probabilities",
+    "Aggregate results across 100,000+ tournament iterations",
+    "Compute final probabilities for each stage (Round of 16, Quarterfinal, Semifinal, Final)"
+  ],
+
+  "probability_modeling": {
+    "group_stage": "Use 3-class probabilities (Win/Draw/Loss) to compute group points",
+    "knockout_stage": "Use binary win probabilities; resolve ties with probabilistic penalties"
+  },
+
+  "calibration": {
+    "method": "Isotonic Regression or Platt Scaling",
+    "purpose": "Ensure probability distributions are well-calibrated before simulation"
+  },
+
+  "outputs": {
+    "team_finalist_probabilities": "outputs/team_finalist_probabilities.json",
+    "simulation_summary": "reports/montecarlo_summary.csv",
+    "visualizations": [
+      "Probability leaderboard bar chart",
+      "Simulation variance convergence plot"
+    ]
+  },
+
+  "parameters": {
+    "iterations": 100000,
+    "random_seed": 42,
+    "simulation_mode": "fully stochastic using calibrated model probabilities"
+  },
+
+  "tools_and_libraries": [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "xgboost",
+    "catboost",
+    "scikit-learn (for calibration)"
+  ],
+
+  "note": "Monte Carlo simulation enables realistic probabilistic forecasts, giving a dynamic leaderboard of finalist likelihoods and confidence intervals."
+}

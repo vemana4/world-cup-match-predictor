@@ -1,0 +1,61 @@
+{
+  "stage": 10,
+  "name": "Explainability & Diagnostic Analysis",
+  "description": "Provide transparent insights into the reasoning behind AI predictions. This stage ensures model accountability and helps understand which features most influence predictions.",
+
+  "objectives": [
+    "Interpret model decisions using explainable AI (XAI) tools",
+    "Diagnose potential overfitting or data leakage",
+    "Increase user trust by showing why predictions occur"
+  ],
+
+  "tools_and_methods": [
+    {
+      "method": "SHAP (SHapley Additive exPlanations)",
+      "purpose": "Quantify contribution of each feature to individual predictions",
+      "output": "Global and local feature importance plots"
+    },
+    {
+      "method": "LIME (Local Interpretable Model-agnostic Explanations)",
+      "purpose": "Explain predictions for individual matches or teams"
+    },
+    {
+      "method": "Permutation Importance",
+      "purpose": "Assess feature influence by evaluating prediction drop when shuffled"
+    }
+  ],
+
+  "diagnostic_analysis": [
+    "Compare predicted vs actual probabilities using calibration plots",
+    "Analyze misclassifications to detect systematic bias",
+    "Visualize decision boundaries for interpretable subsets"
+  ],
+
+  "outputs": {
+    "reports": {
+      "global_feature_importance": "reports/global_feature_importance.json",
+      "local_explanation_samples": "reports/lime_case_studies.csv"
+    },
+    "visualizations": [
+      "SHAP summary plot",
+      "LIME explanation for selected matches",
+      "Bias vs accuracy trade-off dashboard"
+    ]
+  },
+
+  "evaluation_metrics": [
+    "Feature importance stability over time",
+    "SHAP consistency score",
+    "Model calibration (Expected Calibration Error)"
+  ],
+
+  "tools_and_libraries": [
+    "shap",
+    "lime",
+    "scikit-learn",
+    "matplotlib",
+    "pandas"
+  ],
+
+  "note": "Explainability helps stakeholders and users understand why certain teams are favored in predictions and ensures transparency in the AI decision process."
+}

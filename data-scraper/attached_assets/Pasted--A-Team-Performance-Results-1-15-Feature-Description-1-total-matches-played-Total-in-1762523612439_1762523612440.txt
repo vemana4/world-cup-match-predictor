@@ -1,0 +1,178 @@
+---
+
+🏆 A. Team Performance & Results (1–15)
+
+#	Feature	Description
+
+1	total_matches_played	Total international matches before tournament
+2	total_wins	Wins in last 2 years
+3	total_draws	Draws in last 2 years
+4	total_losses	Losses in last 2 years
+5	win_rate	Wins / Total Matches
+6	draw_rate	Draws / Total Matches
+7	loss_rate	Losses / Total Matches
+8	goals_scored_total	Goals scored in qualifying + recent matches
+9	goals_conceded_total	Goals conceded total
+10	goal_difference	Goals scored − goals conceded
+11	clean_sheets	Matches with zero goals conceded
+12	avg_goals_scored	Avg goals per match
+13	avg_goals_conceded	Avg conceded per match
+14	shots_per_match	Average shots attempted
+15	shots_on_target_per_match	Accuracy indicator
+
+
+
+---
+
+⚙️ B. Match & Tactical Stats (16–35)
+
+#	Feature	Description
+
+16	avg_possession	Possession percentage
+17	pass_accuracy	Successful passes %
+18	long_balls_per_match	Tactical style proxy
+19	crosses_per_match	Wing play metric
+20	offside_per_match	Attacking aggression
+21	corners_per_match	Offensive pressure indicator
+22	tackles_per_match	Defensive aggression
+23	interceptions_per_match	Defensive awareness
+24	fouls_per_match	Discipline & pressure
+25	yellow_cards_per_match	Discipline
+26	red_cards_per_match	Risk factor
+27	xG	Expected goals (attack quality)
+28	xGA	Expected goals against (defense weakness)
+29	xG_diff	xG − xGA
+30	goal_conversion_rate	Goals / Shots on target
+31	saves_per_match	Goalkeeper performance
+32	defensive_errors	Errors leading to goals
+33	progressive_passes	Forward passing tendency
+34	counter_attack_goals	Counterattack success
+35	set_piece_goals	Set piece strength
+
+
+
+---
+
+🧍‍♂️ C. Player-Level Averages (36–55)
+
+#	Feature	Description
+
+36	avg_player_age	Squad mean age
+37	avg_player_caps	Average international appearances
+38	avg_player_experience	Weighted experience (caps × minutes)
+39	avg_minutes_played	Fatigue proxy
+40	avg_player_market_value	Mean market value (€)
+41	total_squad_value	Sum of player values
+42	num_foreign_league_players	Exposure to top leagues
+43	num_top5_league_players	(England, Spain, Germany, Italy, France)
+44	avg_height	Physical advantage
+45	avg_weight	Strength metric
+46	avg_speed	Sprint capability (estimated)
+47	avg_shot_accuracy	Forward quality
+48	avg_pass_accuracy	Midfield control
+49	avg_defensive_duels_won	Defensive reliability
+50	avg_clearances	Defensive response
+51	avg_dribbles_completed	Creativity metric
+52	avg_aerial_duels_won	Aerial strength
+53	injury_rate	Recent injury ratio
+54	players_under_23	Youth %
+55	players_over_30	Experience %
+
+
+
+---
+
+👨‍🏫 D. Coach / Management Factors (56–63)
+
+#	Feature	Description
+
+56	coach_name	Identifier
+57	coach_tenure_years	Stability indicator
+58	coach_age	Experience proxy
+59	coach_nationality_match	Binary (same nationality as team)
+60	total_matches_under_coach	Experience with current squad
+61	win_rate_under_coach	Success ratio
+62	formation_flexibility	# of formations used
+63	avg_substitutions_used	Tactical adaptability
+
+
+
+---
+
+🏟️ E. Tournament History & Legacy (64–76)
+
+#	Feature	Description
+
+64	num_worldcups_played	Tournament experience
+65	num_finals_reached	Consistency
+66	titles_won	Historical success
+67	semi_finals_reached	Deep-run frequency
+68	quarter_finals_reached	Depth indicator
+69	avg_tournament_finish_position	Performance trend
+70	avg_goals_per_worldcup	Long-term attack trend
+71	avg_conceded_per_worldcup	Defense history
+72	best_finish_year	Last strong appearance
+73	last_worldcup_rank	Previous tournament placement
+74	years_since_last_final	Recency of success
+75	avg_points_group_stage	Consistency indicator
+76	knockout_win_rate	Clutch performance
+
+
+
+---
+
+🌍 F. Geographical / Contextual (77–85)
+
+#	Feature	Description
+
+77	continent	Confederation (UEFA, CONMEBOL, CAF, AFC, etc.)
+78	home_continent_advantage	Binary (same continent as host)
+79	host_status	1 if host team
+80	climate_similarity	Similarity to host climate (0–1)
+81	altitude_similarity	Altitude match with host
+82	travel_distance_km	Distance from capital to host city
+83	avg_travel_hours	Estimated fatigue
+84	fan_support_index	Proportion of fans traveling
+85	timezone_difference	Jet lag effect
+
+
+
+---
+
+🔮 G. Momentum / Form (86–92)
+
+#	Feature	Description
+
+86	form_points_last5	(3 × wins + 1 × draws) in last 5 matches
+87	goal_diff_last5	Recent performance
+88	streak_wins	Consecutive wins
+89	streak_losses	Consecutive losses
+90	undefeated_streak	Resilience indicator
+91	avg_recent_possession	Tactical stability
+92	avg_recent_goals	Recent attack form
+
+
+
+---
+
+📈 H. Ranking & Rating Systems (93–97)
+
+#	Feature	Description
+
+93	fifa_rank	Latest FIFA official ranking
+94	fifa_points	Official ranking points
+95	elo_rating	ClubElo or WorldFootballElo score
+96	elo_change_last_year	Momentum from ELO trend
+97	avg_opponent_elo	Strength of schedule
+
+
+
+---
+
+🧩 I. Team Chemistry & Coordination (98–100)
+
+#	Feature	Description
+
+98	avg_years_playing_together	Team cohesion
+99	num_same_club_teammates	Familiarity factor
+100	communication_index	Shared language/region synergy score
