@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  predictor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cup_predictor_app
+    ports:
+      - "8501:8501"
+      - "8000:8000"
+    environment:
+      - PORT=8501
+      - DATABASE_URL=sqlite:///database/world_cup.db
+    volumes:
+      - predictor_db:/app/database
+    restart: unless-stopped
+
+volumes:
+  predictor_db:
