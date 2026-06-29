@@ -4,6 +4,7 @@
 [![FastAPI](https://img.shields.io/badge/API-FastAPI-green)](https://fastapi.tiangolo.com)
 [![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)](https://streamlit.io)
 [![Machine Learning](https://img.shields.io/badge/ML-XGBoost%20%7C%20CatBoost%20%7C%20LightGBM-orange)](https://github.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 The World Cup Match Predictor is a sophisticated, end-to-end data science and machine learning suite exclusively dedicated to forecasting the complex outcomes of the FIFA 2026 World Cup. This comprehensive project encapsulates the entirety of the modern machine learning lifecycle. It begins with resilient, automated data acquisition pipelines and advanced web scraping utilities designed to continuously gather, clean, and normalize decades of historical match data, individual player statistics, team performance metrics, and real-time injury reports from disparate global sources.
 
@@ -38,29 +39,120 @@ Interactive bracket simulation app.
 Monolithic streamlit pipeline.
 - **Pipeline**: Automated data fetch ➔ feature scaling ➔ XGBoost model training ➔ Streamlit GUI rendering.
 
+### 📊 Subsystem ML Model & Tech Matrix
+
+| Subsystem | Folder | Key Algorithms | Serving Web Tech | Primary Purpose |
+| :--- | :--- | :--- | :--- | :--- |
+| **Data Scraper** | `data-scraper/` | BeautifulSoup, Regex | Streamlit | Fetches squad metrics, Elo ranks, wiki data to CSV |
+| **Predictor v3** | `predict-system-v3/` | Poisson Regression, XGBoost, CatBoost | FastAPI + Streamlit + SQLite | Simulates matches with mined injury data |
+| **Finalist Model** | `finalist-predictor-lightgbm/` | LightGBM, Monte Carlo | Streamlit | 5,000+ simulation path bracket generator |
+| **Model serving** | `model-serving-classic/` | XGBoost pipeline | Streamlit | Direct monolithic pipeline from features to UI |
+
+---
+
+## 🏗️ Project Architecture
+
+```
+world-cup-match-predictor/
+├── LICENSE
+├── README.md
+│
+├── data-scraper/                 # FIFA & player stats web scraper
+│   ├── app.py                    # Streamlit control panel
+│   ├── data_collector.py         # Scraping executor
+│   ├── scrapers/                 # Scraper modules (squad, Elo, wiki)
+│   └── exports/                  # Scraped output files (.csv, .xlsx)
+│
+├── finalist-predictor-lightgbm/  # LightGBM Monte Carlo simulator
+│   ├── app.py                    # Streamlit bracket GUI dashboard
+│   ├── data_orchestrator.py      # Feature preprocessor
+│   ├── ml_pipeline/              # Feature engineering & simulation engine
+│   └── scrapers/                 # FBref, Transfermarkt, Understat scrapers
+│
+├── model-serving-classic/        # Simple monolithic MVP pipeline
+│   ├── app.py                    # Classic streamlit interface
+│   ├── model_trainer.py          # Local model trainer (XGBoost)
+│   └── models/                   # Serialized model pickles
+│
+└── predict-system-v3/            # Enterprise-grade decoupled predictor
+    ├── app.py                    # Streamlit client app
+    ├── api/                      # FastAPI endpoint controllers
+    ├── database/                 # SQLAlchemy model and session manager
+    ├── ml/                       # Advanced match prediction engine
+    ├── nlp/                      # spaCy injury news miners
+    └── scripts/                  # DB initializers & startup launchers
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Detail |
+| :--- | :--- | :--- |
+| **Backend Engines** | Python 3.11, FastAPI | Rapid, typed REST endpoints |
+| **Web Dashboards** | Streamlit | Direct Python UI generation |
+| **ML Classifiers** | XGBoost, CatBoost, LightGBM | Gradient boosting ensembles |
+| **NLP Miner** | spaCy (Named Entity Recognition) | Information extraction from sports news |
+| **Database Storage**| PostgreSQL, SQLite3 | Relational caching and stats tables |
+| **Environment** | UV (Python Package Manager) | Fast workspace sync and locked runs |
+
 ---
 
 ## 🚀 Setup & Installation
 
-To configure and run any component, navigate to its subdirectory and follow its respective setup instructions.
+This project utilizes the ultra-fast Python package manager **uv**.
 
-For example, to run the **Data Scraper**:
+### Prerequisites
+- **Python 3.11+**
+- **uv** (Install via `curl -LsSf https://astral.sh/uv/install.sh | sh` or `pip install uv`)
+
+### Running the Subsystems
+
+First, clone the repository:
+```bash
+git clone https://github.com/vemana4/world-cup-match-predictor.git
+cd world-cup-match-predictor
+```
+
+#### 1. Data Scraper Console
 ```bash
 cd data-scraper
 uv sync
 uv run streamlit run app.py
 ```
 
-To run the **FastAPI + Streamlit Predictor (v3.0)**:
+#### 2. FastAPI + Streamlit Predictor (v3.0)
+Ensure database is initialized and spin up the backend:
 ```bash
 cd predict-system-v3
 uv sync
+
+# Run database setup
 uv run python scripts/init_database.py
+
+# Launch FastAPI backend server
 uv run python scripts/run_fastapi.py &
+
+# Launch Streamlit client UI dashboard
 uv run streamlit run app.py
+```
+
+#### 3. LightGBM Finalist Simulator
+```bash
+cd finalist-predictor-lightgbm
+uv sync
+uv run python initialize_data.py
+uv run python main.py
 ```
 
 ---
 
 ## 📜 License
+
 This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<p align="center">
+  Built with ❤️ by <a href="https://github.com/vemana4">Vemana Hemanth Babu</a>
+</p>
